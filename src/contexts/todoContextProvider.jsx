@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import api from "../api";
 import { TodoContext } from './todoContext';
 import PropTypes from 'prop-types';
@@ -18,6 +18,10 @@ function TodoContextProvider({ children }) {
       console.error("There was an error fetching the todos!", error);
     }
   };
+
+  useEffect(() => {
+    fetchTodos();
+  }, []);
 
 
   function handleAddTodo(newTodo) {
