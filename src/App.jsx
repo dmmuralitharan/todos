@@ -9,7 +9,7 @@ function App() {
   useEffect(() => {
     const fetchTodos = async () => {
       try {
-        const response = await api.get("http://127.0.0.1:5000/api/todos");
+        const response = await api.get("/");
         console.log(response);
         
         setTodos(response.data);
@@ -26,7 +26,7 @@ function App() {
   console.log(JSON.stringify(todos));
 
   function handleAddTodo(newTodo) {
-    api.post("http://127.0.0.1:5000/api/todos", newTodo)
+    api.post("/", newTodo)
       .then((response) => {
         setTodos([...todos, response.data]);
       })
@@ -45,7 +45,7 @@ function App() {
       )
     );
   
-    api.put(`http://127.0.0.1:5000/api/todos/${_id}`, {
+    api.put(`/${_id}`, {
         completed: !todoToUpdate.completed,
       })
       .then((response) => {
@@ -62,7 +62,7 @@ function App() {
     const updatedTodos = todos.filter((todo) => todo._id !== _id);
     setTodos(updatedTodos);
   
-    api.delete(`http://127.0.0.1:5000/api/todos/${_id}`)
+    api.delete(`${_id}`)
       .then((response) => {
         console.log("Todo deleted:", response.data);
       })
