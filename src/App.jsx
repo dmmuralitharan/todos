@@ -1,6 +1,6 @@
 import TodoList from "./components/TodoList";
 import TodoForm from "./components/TodoForm";
-import axios from "axios";
+import api from "./api";
 import { useState, useEffect } from "react";
 function App() {
 
@@ -9,7 +9,7 @@ function App() {
   useEffect(() => {
     const fetchTodos = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:5000/api/todos");
+        const response = await api.get("http://127.0.0.1:5000/api/todos");
         console.log(response);
         
         setTodos(response.data);
@@ -26,8 +26,7 @@ function App() {
   console.log(JSON.stringify(todos));
 
   function handleAddTodo(newTodo) {
-    axios
-      .post("http://127.0.0.1:5000/api/todos", newTodo)
+    api.post("http://127.0.0.1:5000/api/todos", newTodo)
       .then((response) => {
         setTodos([...todos, response.data]);
       })
@@ -46,8 +45,7 @@ function App() {
       )
     );
   
-    axios
-      .put(`http://127.0.0.1:5000/api/todos/${_id}`, {
+    api.put(`http://127.0.0.1:5000/api/todos/${_id}`, {
         completed: !todoToUpdate.completed,
       })
       .then((response) => {
@@ -64,8 +62,7 @@ function App() {
     const updatedTodos = todos.filter((todo) => todo._id !== _id);
     setTodos(updatedTodos);
   
-    axios
-      .delete(`http://127.0.0.1:5000/api/todos/${_id}`)
+    api.delete(`http://127.0.0.1:5000/api/todos/${_id}`)
       .then((response) => {
         console.log("Todo deleted:", response.data);
       })
