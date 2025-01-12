@@ -29,7 +29,7 @@ function TodoList() {
                 </td>
                 <td className="border border-slate-400 px-4 py-2 text-center">
                   <button className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600">
-                    Edit
+                    completed
                   </button>{" "}
                   <button className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600">
                     Delete
