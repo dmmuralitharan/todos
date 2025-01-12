@@ -1,16 +1,6 @@
 import TodoList from "./components/TodoList";
 import TodoForm from "./components/TodoForm";
-import { useEffect } from "react";
-import { useTodos } from "./hooks/useTodos";
 function App() {
-
-  const { fetchTodos } = useTodos()
-
-  useEffect(() => {
-    fetchTodos();
-  });
-
-
 
   return (<>
     <main className="h-screen flex flex-col">
