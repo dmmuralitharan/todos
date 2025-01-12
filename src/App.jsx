@@ -1,30 +1,81 @@
 import TodoList from "./components/TodoList";
 import TodoForm from "./components/TodoForm";
-import { useState } from "react";
+import axios from "axios";
+import { useState, useEffect } from "react";
 function App() {
 
-  const [todos, setTodos] = useState([
-    { id: 1, todoTask: "Learn React", status: "Pending" },
-    { id: 2, todoTask: "Build a Todo App", status: "Completed" },
-    { id: 3, todoTask: "Master Tailwind CSS", status: "Completed" },
-  ]);
+  const [todos, setTodos] = useState([]);
 
+  useEffect(() => {
+    const fetchTodos = async () => {
+      try {
+        const response = await axios.get("http://127.0.0.1:5000/api/todos");
+        console.log(response);
+        
+        setTodos(response.data);
+      } catch (error) {
+        console.error("There was an error fetching the todos!", error);
+      }
+    };
+
+    fetchTodos();
+
+    
+  }, []);
+  
+  console.log(JSON.stringify(todos));
 
   function handleAddTodo(newTodo) {
-    setTodos([...todos, { id: todos.length + 1, ...newTodo }]);
+    axios
+      .post("http://127.0.0.1:5000/api/todos", newTodo)
+      .then((response) => {
+        setTodos([...todos, response.data]);
+      })
+      .catch((error) => {
+        console.error("Error adding todo:", error);
+      });
   }
+  
 
-  function handleComplete(id) {
+  function handleComplete(_id) {
+    const todoToUpdate = todos.find((todo) => todo._id === _id);
+  
     setTodos(
       todos.map((todo) =>
-        todo.id === id ? { ...todo, status: "Completed" } : todo
+        todo._id === _id ? { ...todo, completed: !todo.completed } : todo
       )
     );
+  
+    axios
+      .put(`http://127.0.0.1:5000/api/todos/${_id}`, {
+        completed: !todoToUpdate.completed,
+      })
+      .then((response) => {
+        console.log("Todo updated:", response.data);
+      })
+      .catch((error) => {
+        console.error("Error updating todo:", error);
+  
+        setTodos(todos);
+      });
   }
 
-  function handleDelete(id) {
-    setTodos(todos.filter((todo) => todo.id !== id));
+  function handleDelete(_id) {
+    const updatedTodos = todos.filter((todo) => todo._id !== _id);
+    setTodos(updatedTodos);
+  
+    axios
+      .delete(`http://127.0.0.1:5000/api/todos/${_id}`)
+      .then((response) => {
+        console.log("Todo deleted:", response.data);
+      })
+      .catch((error) => {
+        console.error("Error deleting todo:", error);
+  
+        setTodos(todos);
+      });
   }
+  
 
 
   return (<>
