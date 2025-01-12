@@ -27,9 +27,9 @@ function TodoForm({ onAddTodo }) {
 
     if (todoFormData.title.trim() !== "") {
       onAddTodo({ title: todoFormData.title });
-      setTodoFormData({ title: "" }); 
+      setTodoFormData({ title: "" });
     }
-    
+
   }
 
   return (
