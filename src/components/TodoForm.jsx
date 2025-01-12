@@ -1,9 +1,9 @@
 import { useState } from "react"
 
-function TodoForm() {
+function TodoForm({ onAddTodo }) {
 
   const [todoFormData, setTodoFormData] = useState({
-    todotask: ''
+    todoTask: ''
   })
 
   function handleTodoInputChange(event) {
@@ -12,7 +12,7 @@ function TodoForm() {
 
     setTodoFormData({
       ...todoFormData,
-      todotask: value
+      todoTask: value
     })
 
   }
@@ -24,7 +24,10 @@ function TodoForm() {
 
     console.log(todoFormData);
 
-    setTodoFormData({ todotask: '' })
+    if (todoFormData.todoTask.trim() !== "") {
+      onAddTodo({ todoTask: todoFormData.todoTask, status: "Pending" });
+      setTodoFormData({ todoTask: "" }); 
+    }
     
   }
 
@@ -32,7 +35,7 @@ function TodoForm() {
     <>
 
       <form className="mx-3 mt-10 w-full flex flex-col gap-y-5" onSubmit={handleTodoFormSubmit}>
-        <input type="text" id="todotask" name="todotask" placeholder="Hello world" className="flex-1 px-2.5 py-2 rounded-md" value={todoFormData.todotask} onChange={handleTodoInputChange} />
+        <input type="text" id="todoTask" name="todoTask" placeholder="Hello world" className="flex-1 px-2.5 py-2 rounded-md" value={todoFormData.todoTask} onChange={handleTodoInputChange} />
         <button type="submit" className="bg-slate-900 text-slate-100 py-2.5 rounded-md font-semibold">Add Todo</button>
       </form>
 
