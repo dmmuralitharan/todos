@@ -1,6 +1,10 @@
 import PropTypes from "prop-types";
+import { useTodos }  from '../hooks/useTodos'
 
-function TodoList({ todos, onComplete, onDelete }) {
+function TodoList() {
+
+    const { todos, handleComplete, handleDelete } = useTodos()
+
 
     return (
         <div className="w-full mt-10 mx-3">
@@ -25,10 +29,10 @@ function TodoList({ todos, onComplete, onDelete }) {
                                 {todo.completed ? "Completed" : "Pending"}
                             </td>
                             <td className="border border-slate-400 px-4 py-2 text-center">
-                                <button className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600" onClick={() => onComplete(todo._id)}>
+                                <button className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600" onClick={() => handleComplete(todo._id)}>
                                     Change Status
                                 </button>{" "}
-                                <button className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600" onClick={() => onDelete(todo._id)}>
+                                <button className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600" onClick={() => handleDelete(todo._id)}>
                                     Delete
                                 </button>
                             </td>

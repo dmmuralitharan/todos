@@ -1,7 +1,10 @@
 import PropTypes from "prop-types";
 import { useState } from "react"
+import { useTodos } from "../hooks/useTodos";
 
-function TodoForm({ onAddTodo }) {
+function TodoForm() {
+
+  const { handleAddTodo } = useTodos()
 
   const [todoFormData, setTodoFormData] = useState({
     title: ''
@@ -26,7 +29,7 @@ function TodoForm({ onAddTodo }) {
     console.log(todoFormData);
 
     if (todoFormData.title.trim() !== "") {
-      onAddTodo({ title: todoFormData.title });
+      handleAddTodo({ title: todoFormData.title });
       setTodoFormData({ title: "" });
     }
 
