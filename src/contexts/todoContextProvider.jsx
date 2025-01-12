@@ -19,6 +19,11 @@ function TodoContextProvider({ children }) {
     }
   };
 
+  
+  useEffect(() => {
+    fetchTodos();
+  }, []);
+
 
   function handleAddTodo(newTodo) {
     api.post("/", newTodo)
