@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useState } from "react"
 
 function TodoForm({ onAddTodo }) {
@@ -41,6 +42,10 @@ function TodoForm({ onAddTodo }) {
 
     </>
   )
+}
+
+TodoForm.propTypes = {
+  onAddTodo: PropTypes.func.isRequired,
 }
 
 export default TodoForm
