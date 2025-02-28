@@ -2,7 +2,7 @@
 
 Backend:
 ---
-Node js:  https://github.com/dmmuralitharan/todos 
+Node js: https://github.com/dmmuralitharan/todo-api 
 
 # React + Vite
 
